@@ -2,66 +2,64 @@ import java.util.List;
 
 public class Main{
 
-    private int[] arr = ListGenerator.getNewList(100000);
+    public static final int THRESHHOLD = 500; // threshhold
+    public static final int SIZE = 25000; // array size
+
+    private static final int TYPE = 3; // sort type 1 = single, 2 = double, 3 = multi
+    private static final int RUNCOUNT = 10; // amount of times to run the sort - for testing purposes
+
+    private int[] arr = ListGenerator.getNewList(SIZE);
     private SelectionSort se = new SelectionSort(arr);
 
 
     public static void main(String[] args) {
         new Main().run();
-
     }
 
-    public void run() {
-        SelectionSort ss = new SelectionSort(arr);
-        Thread t = new Thread(ss);
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    private void testSort(int type) {
+
+        for (int i = 0; i < RUNCOUNT; i++) {
+            long lastTime = System.nanoTime();
+
+            switch(type){
+                case 1:
+                    System.out.println("Single sort:");
+                    SingleThreadSort(se);
+                    break;
+                case 2:
+                    System.out.println("Two-thread sort");
+                    TwoThreadSort(se);
+                    break;
+                case 3:
+                    System.out.println("Multi-thread sort");
+                    multiThreadedSort(se);
+                    break;
+                default:
+                    System.out.println("No type selected!");
+            }
+
+            long newTime = System.nanoTime() - lastTime;
+            System.out.print(i + 1 + ". Time: " + newTime / 1000000 + " MS\n");
+            se.resetArray();
         }
-        ListGenerator.printArray(ss.getArray());
-//        ListGenerator.printArray(se.getArray());
-////      SingleThreadSort(se.getArray());
-//
-//
-//        int[] sortedArr = TwoThreadSort(se.getArray());
-//
-//        ListGenerator.printArray(sortedArr);
-//
-//        if (ListGenerator.checkIfSorted(sortedArr)){
-//            System.out.println();
-//            System.out.println("THE ARRAY IS FUCKING SORTED G");
-//        }
     }
 
-    public void SingleThreadSort(int[] arrToSort) {
-        System.out.println("\nSORTING....");
+    private void run() {
+        se.printCurrentArray();
+
+        testSort(TYPE);
+
+    }
+
+    private void SingleThreadSort(SelectionSort selectionSort) {
         int[] arr;
-        arr = arrToSort;
-        se.sort(arr);
+        arr = selectionSort.getArray();
+        selectionSort.sort(arr);
     }
 
-    public int[] mergeArrays(int[] arr1, int[] arr2) {
-        int arrSize = (arr1.length +  arr2.length);
-        int[] mergedArray = new int[arrSize];
-
-        for(int i = 0; i < arr1.length; i++) {
-            mergedArray[i] = arr1[i];
-        }
-
-        for(int i = 0; i < arr2.length; i++) {
-            mergedArray[arr2.length + i] = arr2[i];
-        }
-
-        se.sort(mergedArray);
-        return mergedArray;
-    }
-
-    public int[] TwoThreadSort(int[] arrToSort) {
-        System.out.println("\nSORTING....");
+    private void TwoThreadSort(SelectionSort selectionSort) {
         int[] arr;
-        arr = arrToSort;
+        arr = selectionSort.getArray();
 
         int length = arr.length / 2;
 
@@ -76,14 +74,14 @@ public class Main{
             arrSecondHalf[i] = arr[length + i];
         }
 
-        SelectionSort firstArray = new SelectionSort(arrFirstHalf);
-        SelectionSort secondArray = new SelectionSort(arrSecondHalf);
+        SelectionSort firstArray = new SelectionSort(arrFirstHalf, false);
+        SelectionSort secondArray = new SelectionSort(arrSecondHalf, false);
 
         Thread t1 = new Thread(firstArray);
         Thread t2 = new Thread(secondArray);
 
-        t1.run();
-        t2.run();
+        t1.start();
+        t2.start();
 
         try {
             t1.join();
@@ -93,7 +91,18 @@ public class Main{
             e.printStackTrace();
         }
 
-        return mergeArrays(firstArray.getArray(), secondArray.getArray());
+        selectionSort.setArrToSort(ListGenerator.mergeArrays(firstArray.getArray(), secondArray.getArray()));
+    }
+
+    private void multiThreadedSort(SelectionSort selectionSort){
+        System.out.println("SORTING...");
+        Thread t = new Thread(selectionSort);
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

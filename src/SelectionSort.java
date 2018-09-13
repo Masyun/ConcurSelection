@@ -1,12 +1,22 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class SelectionSort implements Runnable{
 
 
     private int[] arrToSort;
+    private boolean flag;
+
 
     public SelectionSort(int[] arr) {
         this.arrToSort = arr;
+        flag = true;
+    }
+
+    public SelectionSort(int[] arr, boolean flag){
+        this.arrToSort = arr;
+        this.flag = flag;
     }
 
     public void sort(int[] input) {
@@ -28,12 +38,17 @@ public class SelectionSort implements Runnable{
     }
 
     public void recursiveSort(int[] arr) {
+        int[] arr1;
+        int[] arr2;
 
-        if(arr.length > 1000) {
+        if(arr.length > Main.THRESHHOLD && flag) {
+            if (arr.length%2 == 0){ // even
+                arr1 = new int[arr.length / 2];
+            }else{
+                arr1 = new int[(arr.length / 2)+1];
+            }
 
-            int[] arr1 = new int[arr.length / 2];
-            int[] arr2 = new int[arr.length / 2];
-
+            arr2 = new int[arr.length / 2];
             System.arraycopy(arr, 0, arr1, 0, arr1.length);
             System.arraycopy(arr, arr1.length, arr2, 0, arr2.length);
 
@@ -54,37 +69,44 @@ public class SelectionSort implements Runnable{
                 e.printStackTrace();
             }
 
-            arrToSort = mergeArrays(ss1.getArray(), ss2.getArray());
+            arrToSort = ListGenerator.mergeArrays(ss1.getArray(), ss2.getArray());
 
         } else {
             sort(arr);
         }
     }
 
-    public int[] mergeArrays(int[] arr1, int[] arr2) {
-        int arrSize = (arr1.length +  arr2.length);
-        int[] mergedArray = new int[arrSize];
-
-        for(int i = 0; i < arr1.length; i++) {
-            mergedArray[i] = arr1[i];
-        }
-
-        for(int i = 0; i < arr2.length; i++) {
-            mergedArray[arr2.length + i] = arr2[i];
-        }
-
-        sort(mergedArray);
-        return mergedArray;
-    }
-
     public int[] getArray() {
         return arrToSort;
     }
 
+    public void setArrToSort(int[] arrToSort) {
+        this.arrToSort = arrToSort;
+    }
+
+    public void printCurrentArray(){
+        for (int i = 0; i < arrToSort.length; i++) {
+            System.out.print(arrToSort[i] + ", ");
+        }
+    }
+
+    private int[] getNewList(int size){
+
+        int[] arrayList = new int[size];
+        for (int i = 0; i < arrayList.length; i++){
+            int x = new Random().nextInt(100) + 1;
+            arrayList[i] = x;
+        }
+
+        return arrayList;
+    }
+
+    public void resetArray(){
+        setArrToSort(getNewList(Main.SIZE));
+    }
 
     @Override
     public void run() {
-        System.out.println("Thread: " + Thread.currentThread().getName());
         recursiveSort(arrToSort);
     }
 }
