@@ -2,7 +2,7 @@ import java.util.List;
 
 public class Main{
 
-    private int[] arr = ListGenerator.getNewList(100);
+    private int[] arr = ListGenerator.getNewList(100000);
     private SelectionSort se = new SelectionSort(arr);
 
 
@@ -12,25 +12,34 @@ public class Main{
     }
 
     public void run() {
-        ListGenerator.printArray(se.getArray());
-//      SingleThreadSort(se.getArray());
-
-
-        int[] sortedArr = TwoThreadSort(se.getArray());
-
-        ListGenerator.printArray(sortedArr);
-
-        if (ListGenerator.checkIfSorted(sortedArr)){
-            System.out.println();
-            System.out.println("THE ARRAY IS FUCKING SORTED G");
+        SelectionSort ss = new SelectionSort(arr);
+        Thread t = new Thread(ss);
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        ListGenerator.printArray(ss.getArray());
+//        ListGenerator.printArray(se.getArray());
+////      SingleThreadSort(se.getArray());
+//
+//
+//        int[] sortedArr = TwoThreadSort(se.getArray());
+//
+//        ListGenerator.printArray(sortedArr);
+//
+//        if (ListGenerator.checkIfSorted(sortedArr)){
+//            System.out.println();
+//            System.out.println("THE ARRAY IS FUCKING SORTED G");
+//        }
     }
 
     public void SingleThreadSort(int[] arrToSort) {
         System.out.println("\nSORTING....");
         int[] arr;
         arr = arrToSort;
-        se.sort2(arr);
+        se.sort(arr);
     }
 
     public int[] mergeArrays(int[] arr1, int[] arr2) {
@@ -45,7 +54,7 @@ public class Main{
             mergedArray[arr2.length + i] = arr2[i];
         }
 
-        se.sort2(mergedArray);
+        se.sort(mergedArray);
         return mergedArray;
     }
 
