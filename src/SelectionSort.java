@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class SelectionSort implements Runnable{
@@ -38,19 +36,13 @@ public class SelectionSort implements Runnable{
     }
 
     public void recursiveSort(int[] arr) {
-        int[] arr1;
-        int[] arr2;
+        int[] arr1 = leftHalf(arr);
+        int[] arr2 = rightHalf(arr);
 
         if(arr.length > Main.THRESHHOLD && flag) {
-            if (arr.length%2 == 0){ // even
-                arr1 = new int[arr.length / 2];
-            }else{
-                arr1 = new int[(arr.length / 2)+1];
-            }
 
-            arr2 = new int[arr.length / 2];
-            System.arraycopy(arr, 0, arr1, 0, arr1.length);
-            System.arraycopy(arr, arr1.length, arr2, 0, arr2.length);
+//            System.arraycopy(arr, 0, arr1, 0, arr1.length);
+//            System.arraycopy(arr, arr1.length, arr2, 0, arr2.length);
 
             SelectionSort ss1 = new SelectionSort(arr1);
             SelectionSort ss2 = new SelectionSort(arr2);
@@ -80,13 +72,39 @@ public class SelectionSort implements Runnable{
         return arrToSort;
     }
 
+    private int[] leftHalf(int[] array) {
+        int size1 = array.length / 2;
+        int[] left = new int[size1];
+        for (int i = 0; i < size1; i++) {
+            left[i] = array[i];
+        }
+        return left;
+    }
+
+    private int[] rightHalf(int[] array) {
+        int size1 = array.length / 2;
+        int size2 = array.length - size1;
+        int[] right = new int[size2];
+        for (int i = 0; i < size2; i++) {
+            right[i] = array[i + size1];
+        }
+        return right;
+    }
+
     public void setArrToSort(int[] arrToSort) {
         this.arrToSort = arrToSort;
     }
 
     public void printCurrentArray(){
+        System.out.println("Size: " + getArray().length);
         for (int i = 0; i < arrToSort.length; i++) {
             System.out.print(arrToSort[i] + ", ");
+        }
+
+        if (ListGenerator.checkIfSorted(getArray())){
+            System.out.println("\n> The array is sorted!");
+        }else{
+            System.out.println("\n> The array is NOT sorted!");
         }
     }
 

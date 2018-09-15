@@ -1,8 +1,6 @@
-import java.util.List;
-
 public class Main{
 
-    public static final int THRESHHOLD = 500; // threshhold
+    public static final int THRESHHOLD = 2500; // threshhold
     public static final int SIZE = 25000; // array size
 
     private static final int TYPE = 3; // sort type 1 = single, 2 = double, 3 = multi
@@ -17,10 +15,9 @@ public class Main{
     }
 
     private void testSort(int type) {
-
         for (int i = 0; i < RUNCOUNT; i++) {
             long lastTime = System.nanoTime();
-
+            System.out.println();
             switch(type){
                 case 1:
                     System.out.println("Single sort:");
@@ -40,15 +37,17 @@ public class Main{
 
             long newTime = System.nanoTime() - lastTime;
             System.out.print(i + 1 + ". Time: " + newTime / 1000000 + " MS\n");
+
+            se.printCurrentArray();
             se.resetArray();
         }
+
+
     }
 
     private void run() {
         se.printCurrentArray();
-
         testSort(TYPE);
-
     }
 
     private void SingleThreadSort(SelectionSort selectionSort) {
