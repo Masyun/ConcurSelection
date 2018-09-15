@@ -43,7 +43,6 @@ public class SelectionSort implements Runnable{
 
 //            System.arraycopy(arr, 0, arr1, 0, arr1.length);
 //            System.arraycopy(arr, arr1.length, arr2, 0, arr2.length);
-
             SelectionSort ss1 = new SelectionSort(arr1);
             SelectionSort ss2 = new SelectionSort(arr2);
 
@@ -108,19 +107,8 @@ public class SelectionSort implements Runnable{
         }
     }
 
-    private int[] getNewList(int size){
-
-        int[] arrayList = new int[size];
-        for (int i = 0; i < arrayList.length; i++){
-            int x = new Random().nextInt(100) + 1;
-            arrayList[i] = x;
-        }
-
-        return arrayList;
-    }
-
     public void resetArray(){
-        setArrToSort(getNewList(Main.SIZE));
+        setArrToSort(ListGenerator.getNewList(Main.SIZE));
     }
 
     @Override

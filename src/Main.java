@@ -1,7 +1,7 @@
 public class Main{
 
-    public static final int THRESHHOLD = 2500; // threshhold
-    public static final int SIZE = 25000; // array size
+    public static final int THRESHHOLD = 25000; // threshhold
+    public static final int SIZE = 400000; // array size
 
     private static final int TYPE = 3; // sort type 1 = single, 2 = double, 3 = multi
     private static final int RUNCOUNT = 10; // amount of times to run the sort - for testing purposes
@@ -38,7 +38,6 @@ public class Main{
             long newTime = System.nanoTime() - lastTime;
             System.out.print(i + 1 + ". Time: " + newTime / 1000000 + " MS\n");
 
-            se.printCurrentArray();
             se.resetArray();
         }
 
