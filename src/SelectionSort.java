@@ -2,21 +2,33 @@ import java.util.Random;
 
 public class SelectionSort implements Runnable{
 
-
     private int[] arrToSort;
     private boolean flag;
 
-
+    /**
+     * Constuctor class, flag set to true.
+     * When this constructor is called it will always fall through the recursive sort method.
+     * @param arr to be sorted.
+     */
     public SelectionSort(int[] arr) {
         this.arrToSort = arr;
         flag = true;
     }
 
+    /**
+     * Overloaded constructor, has an option for flag.
+     * @param arr to be sorted.
+     * @param flag to help with setting recursive sorting method vs non-recursive.
+     */
     public SelectionSort(int[] arr, boolean flag){
         this.arrToSort = arr;
         this.flag = flag;
     }
 
+    /**
+     * Selection sort method.
+     * @param input to be sorted.
+     */
     public void sort(int[] input) {
         int inputLength = input.length;
 
@@ -35,6 +47,10 @@ public class SelectionSort implements Runnable{
         }
     }
 
+    /**
+     * Makes threads, splits the array, and merges the result at the end.
+     * @param arr to be sorted.
+     */
     public void recursiveSort(int[] arr) {
         int[] arr1 = leftHalf(arr);
         int[] arr2 = rightHalf(arr);
@@ -71,6 +87,11 @@ public class SelectionSort implements Runnable{
         return arrToSort;
     }
 
+    /**
+     * Helper method for splitting array.
+     * @param array to be split.
+     * @return half an array.
+     */
     private int[] leftHalf(int[] array) {
         int size1 = array.length / 2;
         int[] left = new int[size1];
@@ -80,6 +101,11 @@ public class SelectionSort implements Runnable{
         return left;
     }
 
+    /**
+     * Helper method for splitting array.
+     * @param array to be split.
+     * @return half an array.
+     */
     private int[] rightHalf(int[] array) {
         int size1 = array.length / 2;
         int size2 = array.length - size1;
@@ -94,6 +120,9 @@ public class SelectionSort implements Runnable{
         this.arrToSort = arrToSort;
     }
 
+    /**
+     * Helper method for printing an array.
+     */
     public void printCurrentArray(){
         System.out.println("Size: " + getArray().length);
         for (int i = 0; i < arrToSort.length; i++) {
@@ -107,6 +136,9 @@ public class SelectionSort implements Runnable{
         }
     }
 
+    /**
+     * Helper method to clear the array.
+     */
     public void resetArray(){
         setArrToSort(ListGenerator.getNewList(Main.SIZE));
     }
