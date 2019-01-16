@@ -22,7 +22,12 @@ public class ListGenerator {
         return true;
     }
 
+    public static int[] mergeSort(int[] arr){
 
+
+
+        return null;
+    }
 
     public static int[] mergeArrays(int[] arr1, int[] arr2) {
         int arrSize = (arr1.length +  arr2.length);

@@ -41,8 +41,6 @@ public class SelectionSort implements Runnable{
 
         if(arr.length > Main.THRESHHOLD && flag) {
 
-//            System.arraycopy(arr, 0, arr1, 0, arr1.length);
-//            System.arraycopy(arr, arr1.length, arr2, 0, arr2.length);
             SelectionSort ss1 = new SelectionSort(arr1);
             SelectionSort ss2 = new SelectionSort(arr2);
 
@@ -59,6 +57,16 @@ public class SelectionSort implements Runnable{
                 System.out.println(Thread.currentThread() + " -- Something went wrong when joining thread. Stack below :");
                 e.printStackTrace();
             }
+
+//            System.out.println("\nArray SS1:");
+//            for (int i = 0; i < ss1.getArray().length; i++) {
+//                System.out.print(ss1.getArray()[i] + ", ");
+//            }
+//
+//            System.out.println("\nArray SS2:");
+//            for (int i = 0; i < ss2.getArray().length; i++) {
+//                System.out.print(ss2.getArray()[i] + ", ");
+//            }
 
             arrToSort = ListGenerator.mergeArrays(ss1.getArray(), ss2.getArray());
 
@@ -95,10 +103,10 @@ public class SelectionSort implements Runnable{
     }
 
     public void printCurrentArray(){
-        System.out.println("Size: " + getArray().length);
-        for (int i = 0; i < arrToSort.length; i++) {
-            System.out.print(arrToSort[i] + ", ");
-        }
+//        System.out.println("Size: " + getArray().length);
+//        for (int i = 0; i < arrToSort.length; i++) {
+//            System.out.print(arrToSort[i] + ", ");
+//        }
 
         if (ListGenerator.checkIfSorted(getArray())){
             System.out.println("\n> The array is sorted!");
