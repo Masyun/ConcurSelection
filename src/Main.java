@@ -14,6 +14,10 @@ public class Main{
         new Main().run();
     }
 
+    /**
+     * Helper method for testing the different sorting methods.
+     * @param type of test.
+     */
     private void testSort(int type) {
         for (int i = 0; i < RUNCOUNT; i++) {
             long lastTime = System.nanoTime();
@@ -41,8 +45,6 @@ public class Main{
 
             se.resetArray();
         }
-
-
     }
 
     private void run() {
@@ -51,12 +53,20 @@ public class Main{
         testSort(TYPE);
     }
 
+    /**
+     * Calls the sort method on the main thread.
+     * @param selectionSort instance of this class.
+     */
     private void SingleThreadSort(SelectionSort selectionSort) {
         int[] arr;
         arr = selectionSort.getArray();
         selectionSort.sort(arr);
     }
 
+    /**
+     * Creates two threads, splits up the array, sorts the arrays and merges them again.
+     * @param selectionSort instance of this class.
+     */
     private void TwoThreadSort(SelectionSort selectionSort) {
         int[] arr;
         arr = selectionSort.getArray();
@@ -94,6 +104,10 @@ public class Main{
         selectionSort.setArrToSort(ListGenerator.mergeArrays(firstArray.getArray(), secondArray.getArray()));
     }
 
+    /**
+     * Calls the multtThreaded sort method for us from the selectionSort.
+     * @param selectionSort instance of this class.
+     */
     private void multiThreadedSort(SelectionSort selectionSort){
         System.out.println("SORTING...");
         Thread t = new Thread(selectionSort);
