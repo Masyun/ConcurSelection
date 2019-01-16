@@ -38,7 +38,7 @@ public class ListGenerator {
 
         return null;
     }
-    
+
     /**
      * Merges two arrays together.
      * @param arr1 first half of the array.
