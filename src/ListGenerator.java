@@ -4,13 +4,14 @@ public class ListGenerator {
 
     /**
      * Generates a new array according to the specified size.
+     *
      * @param size of the array.
      * @return the newly generated array.
      */
-    public static int[] getNewList(int size){
+    public static int[] getNewList(int size) {
         int[] arrayList = new int[size];
-        for (int i = 0; i < arrayList.length; i++){
-            int x = new Random().nextInt(100) + 1;
+        for (int i = 0; i < arrayList.length; i++) {
+            int x = new Random().nextInt(Main.RAND_BOUND) + 1; // zero exclusive
             arrayList[i] = x;
         }
 
@@ -19,34 +20,31 @@ public class ListGenerator {
 
     /**
      * Checks if the array is sorted.
+     *
      * @param array the array to be checked.
      * @return a boolean value wether the array is sorted.
      */
     public static boolean checkIfSorted(int[] array) {
         for (int i = 1; i < array.length; i++) {
-            int currentIndex = array[i-1];
-            if (currentIndex > array[i]){
+            int currentIndex = array[i - 1];
+            if (currentIndex > array[i]) {
                 return false;
             }
         }
         return true;
     }
 
-    public static int[] mergeSort(int[] arr){
-
-
-
-        return null;
-    }
-
     /**
      * Merges two arrays together.
-     * @param arr1 first half of the array.
-     * @param arr2 second half of the array.
-     * @return merged array.
+     * First allocates enough space for both arrays to fit in, in a third array
+     * Where both arrays get concatenated in this array, followed by an in-place merge-sort
+     *
+     * @param arr1 first half of the initial array.
+     * @param arr2 second half of the second array.
+     * @return a new sorted and array containing all elements of arr1 & arr2.
      */
     public static int[] mergeArrays(int[] arr1, int[] arr2) {
-        int arrSize = (arr1.length +  arr2.length);
+        int arrSize = (arr1.length + arr2.length);
         int[] mergedArray = new int[arrSize];
 
         int bound = arr1.length;
@@ -59,7 +57,7 @@ public class ListGenerator {
             mergedArray[arr1.length + i] = arr2[i];
         }
 
-        new SelectionSort(mergedArray).sort(mergedArray);
+        mergedArray = Mergesort.mergesort(mergedArray);
         return mergedArray;
     }
 }
