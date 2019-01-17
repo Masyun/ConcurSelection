@@ -5,10 +5,10 @@ public class Main {
      * Config variables - to manipulate the behaviour of the program
      */
     private static final SortType TYPE = SortType.MULTI; // sort type single, double, multi
-    private static final int RUNCOUNT = 5; // amount of times to run the sort - for testing purposes
+    private static final int RUNCOUNT = 10; // amount of times to run the sort - for testing purposes
 
-    static final int SIZE = 50000; // list size
-    static final int THRESHHOLD = 10000; // thread threshhold
+    static final int SIZE = 400000; // list size
+    static final int THRESHHOLD = 50000; // thread threshhold
     static final boolean ADD_INFO = false; // sets whether the program should output additional information about the contents of the list in between runs
     static final int RAND_BOUND = 10000; // the bound of the possible value returned by the Random object in ListUtility
 

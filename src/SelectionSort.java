@@ -133,7 +133,6 @@ public class SelectionSort implements Runnable {
                 System.out.print(anArrToSort + ", ");
             }
         }
-        System.out.println("checking if sorted...");
         if (ListUtility.checkIfSorted(getArray())) {
             System.out.println("> The array is sorted!");
         } else {

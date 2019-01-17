@@ -1,6 +1,6 @@
 package Utility;
 
-public class Mergesort {
+class Mergesort {
 
     private static int[] merge(int[] a, int[] b) {
         int[] c = new int[a.length + b.length];
