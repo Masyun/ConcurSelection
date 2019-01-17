@@ -1,3 +1,5 @@
+import Utility.ListUtility;
+
 public class SelectionSort implements Runnable {
 
     private int[] arrToSort;
@@ -75,7 +77,7 @@ public class SelectionSort implements Runnable {
                 System.out.println(Thread.currentThread() + " -- Something went wrong when joining thread. Stack below :");
                 e.printStackTrace();
             } finally {
-                setArrToSort(ListGenerator.mergeArrays(ss1.getArray(), ss2.getArray()));
+                setArrToSort(ListUtility.mergeArrays(ss1.getArray(), ss2.getArray()));
             }
         } else {
             sort(arr);
@@ -132,7 +134,7 @@ public class SelectionSort implements Runnable {
             }
         }
         System.out.println("checking if sorted...");
-        if (ListGenerator.checkIfSorted(getArray())) {
+        if (ListUtility.checkIfSorted(getArray())) {
             System.out.println("> The array is sorted!");
         } else {
             System.out.println("> The array is NOT sorted!");
@@ -147,7 +149,7 @@ public class SelectionSort implements Runnable {
             System.out.print(anArrToSort + ", ");
         }
 
-        if (ListGenerator.checkIfSorted(getArray())) {
+        if (ListUtility.checkIfSorted(getArray())) {
             System.out.println("\n> The array is sorted!");
         } else {
             System.out.println("\n> The array is NOT sorted!");
@@ -158,7 +160,7 @@ public class SelectionSort implements Runnable {
      * Helper method to clear the array.
      */
     public void resetArray() {
-        setArrToSort(ListGenerator.getNewList(Main.SIZE));
+        setArrToSort(ListUtility.getNewList(Main.SIZE, Main.RAND_BOUND));
     }
 
     @Override

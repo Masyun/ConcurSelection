@@ -1,3 +1,5 @@
+package Utility;
+
 public class Mergesort {
 
     private static int[] merge(int[] a, int[] b) {
@@ -18,6 +20,7 @@ public class Mergesort {
         if (N <= 1) {
             return input;
         }
+
         int[] a = new int[N / 2];
         int[] b = new int[N - N / 2];
 
@@ -27,5 +30,6 @@ public class Mergesort {
 
         return merge(mergesort(a), mergesort(b));
     }
-
 }
+
+

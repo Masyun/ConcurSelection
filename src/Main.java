@@ -1,15 +1,18 @@
+import Utility.ListUtility;
+
 public class Main {
     /**
      * Config variables - to manipulate the behaviour of the program
      */
     private static final SortType TYPE = SortType.MULTI; // sort type single, double, multi
     private static final int RUNCOUNT = 5; // amount of times to run the sort - for testing purposes
-    public static final int SIZE = 50000; // array size
-    public static final int THRESHHOLD = 10000; // thread threshhold
-    public static final boolean ADD_INFO = false; // sets whether the program should output the array contents in between runs
-    public static final int RAND_BOUND = 10000; // the bound of the possible value returned by the Random object in ListGenerator
 
-    private int[] arr = ListGenerator.getNewList(SIZE);
+    static final int SIZE = 50000; // list size
+    static final int THRESHHOLD = 10000; // thread threshhold
+    static final boolean ADD_INFO = false; // sets whether the program should output additional information about the contents of the list in between runs
+    static final int RAND_BOUND = 10000; // the bound of the possible value returned by the Random object in ListUtility
+
+    private int[] arr = ListUtility.getNewList(SIZE, RAND_BOUND);
     private SelectionSort se = new SelectionSort(arr);
 
     public static void main(String[] args) {
@@ -28,11 +31,11 @@ public class Main {
             switch (type) {
                 case SINGLE:
                     System.out.println("Single sort:");
-                    SingleThreadSort(se);
+                    singleThreadSort(se);
                     break;
                 case DOUBLE:
                     System.out.println("Two-thread sort");
-                    TwoThreadSort(se);
+                    twoThreadSort(se);
                     break;
                 case MULTI:
                     System.out.println("Multi-thread sort");
@@ -59,7 +62,7 @@ public class Main {
      *
      * @param selectionSort instance of this class.
      */
-    private void SingleThreadSort(SelectionSort selectionSort) {
+    private void singleThreadSort(SelectionSort selectionSort) {
         int[] arr;
         arr = selectionSort.getArray();
         selectionSort.sort(arr);
@@ -70,7 +73,7 @@ public class Main {
      *
      * @param selectionSort instance of this class.
      */
-    private void TwoThreadSort(SelectionSort selectionSort) {
+    private void twoThreadSort(SelectionSort selectionSort) {
         int[] arr;
         arr = selectionSort.getArray();
 
@@ -103,7 +106,7 @@ public class Main {
             System.out.println("Something went wrong when joining threads, stack below: " + '\n');
             e.printStackTrace();
         }finally {
-            selectionSort.setArrToSort(ListGenerator.mergeArrays(firstArray.getArray(), secondArray.getArray()));
+            selectionSort.setArrToSort(ListUtility.mergeArrays(firstArray.getArray(), secondArray.getArray()));
         }
     }
 
