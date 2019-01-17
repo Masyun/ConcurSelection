@@ -2,12 +2,11 @@ public class Main {
     /**
      * Config variables - to manipulate the behaviour of the program
      */
-    private static SortType TYPE = SortType.SINGLE; // sort type 1 = single, 2 = double, 3 = multi
+    private static final SortType TYPE = SortType.MULTI; // sort type single, double, multi
     private static final int RUNCOUNT = 5; // amount of times to run the sort - for testing purposes
-    public static final int SIZE = 200000; // array size
-    public static final int THRESHHOLD = 10000; // threshhold
-    public static final boolean ADD_INFO = true; // sets whether the program should output the array contents in between runs
-
+    public static final int SIZE = 50000; // array size
+    public static final int THRESHHOLD = 10000; // thread threshhold
+    public static final boolean ADD_INFO = false; // sets whether the program should output the array contents in between runs
     public static final int RAND_BOUND = 10000; // the bound of the possible value returned by the Random object in ListGenerator
 
     private int[] arr = ListGenerator.getNewList(SIZE);
@@ -41,16 +40,17 @@ public class Main {
                     break;
                 default:
                     System.out.println("No type selected!");
+                    break;
             }
             long newTime = System.nanoTime() - lastTime;
-            se.printCurrentArray((i + 1), (newTime));
+            se.printCurrentArray(i, newTime);
 
             se.resetArray();
         }
     }
 
     private void run() {
-        System.out.println("\nStarting sorting procedure...");
+        System.out.println("Starting sorting procedure...\n");
         testSort(TYPE);
     }
 

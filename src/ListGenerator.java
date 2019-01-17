@@ -57,7 +57,6 @@ public class ListGenerator {
             mergedArray[arr1.length + i] = arr2[i];
         }
 
-        mergedArray = Mergesort.mergesort(mergedArray);
-        return mergedArray;
+        return Mergesort.mergesort(mergedArray);
     }
 }

@@ -131,13 +131,14 @@ public class SelectionSort implements Runnable {
                 System.out.print(anArrToSort + ", ");
             }
         }
-
+        System.out.println("checking if sorted...");
         if (ListGenerator.checkIfSorted(getArray())) {
-            System.out.println("\n> The array is sorted!");
+            System.out.println("> The array is sorted!");
         } else {
-            System.out.println("\n> The array is NOT sorted!");
+            System.out.println("> The array is NOT sorted!");
         }
         System.out.print(iter + 1 + ". Time: " + newTime / 1000000 + " MS\n");
+        System.out.println();
     }
 
     public void printCurrentArray() {
