@@ -4,12 +4,12 @@ public class Main {
     /**
      * Config variables - to manipulate the behaviour of the program
      */
-    private static final SortType TYPE = SortType.MULTI; // sort type single, double, multi
+    private static final SortType TYPE = SortType.SINGLE; // sort type => single, double, multi
     private static final int RUNCOUNT = 10; // amount of times to run the sort - for testing purposes
 
-    static final int SIZE = 400000; // list size
-    static final int THRESHHOLD = 50000; // thread threshhold
-    static final boolean ADD_INFO = false; // sets whether the program should output additional information about the contents of the list in between runs
+    static final int SIZE = 1000; // list size
+    static final int THRESHHOLD = 100000; // thread threshhold, note that this is only relevant with MULTI sorts
+    static final boolean ADD_INFO = true; // sets whether the program should output additional information about the contents of the list in between runs
     static final int RAND_BOUND = 10000; // the bound of the possible value returned by the Random object in ListUtility
 
     private int[] arr = ListUtility.getNewList(SIZE, RAND_BOUND);
@@ -105,7 +105,7 @@ public class Main {
         } catch (InterruptedException e) {
             System.out.println("Something went wrong when joining threads, stack below: " + '\n');
             e.printStackTrace();
-        }finally {
+        } finally {
             selectionSort.setArrToSort(ListUtility.mergeArrays(firstArray.getArray(), secondArray.getArray()));
         }
     }
